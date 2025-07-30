@@ -436,7 +436,7 @@ function initROP(init)
 			elem.parentNode.removeChild(elem);
 			setTimeout(trigger,50,jump_1_addr);
 			showResult("<h2>Cek Jenis Firmware...<br><br><br></h2>");
-			setTimeout(checkVsh,5000);
+			setTimeout(checkPatch,3000);
 			t_out=0;
 			total_loops=0;
 		}
@@ -447,22 +447,6 @@ function initROP(init)
 	}
 	catch(e)
 	{
-	}
-}
-function checkVsh()
-{
-	vshchk=checkMemory(0x8A500000,0x302000,0x302000);
-	if(vshchk.hashCode()!='584729695')	//4.92
-	{
-		showResult("<h2><span style='color:green'>PS3 ini sudah CFW, tidak perlu didowngrade!<br><br>(' _ ')</span></h2>");
-	}
-	else
-	{
-		document.getElementById("init").disabled = true;
-		document.getElementById("init").style.opacity = 0;
-		setTimeout(trigger,50,jump_1_addr);
-		showResult('<h2>Cek file patch...<br><br><br></h2>');
-		setTimeout(checkPatch,3000);
 	}
 }
 function checkPatch()
@@ -483,7 +467,7 @@ function checkHash()
 		showResult("<h2><span style='color:red'>Proses berhenti karena tidak ditemukan file patch!</span><br>Pastikan dongle original CM terpasang di slot USB000 PS3,<br>kemudian klik tombol Lanjutkan di bawah ini:</h2>");
 		document.getElementById("init").style.opacity = 1;
 		document.getElementById("init").value = "Lanjutkan";
-		document.getElementById("init").onclick = function (){checkVsh();};
+		document.getElementById("init").onclick = function (){checkPatch();};
 		document.getElementById("init").disabled = false;
 	}
 	else
@@ -491,7 +475,7 @@ function checkHash()
 		showResult("<h2><span style='color:red'>Proses berhenti karena file patch tidak cocok!</span><br>Pastikan dongle original CM terpasang di slot USB000 PS3,<br>kemudian klik tombol Lanjutkan di bawah ini:</h2>");
 		document.getElementById("init").style.opacity = 1;
 		document.getElementById("init").value = "Lanjutkan";
-		document.getElementById("init").onclick = function (){checkVsh();};
+		document.getElementById("init").onclick = function (){checkPatch();};
 		document.getElementById("init").disabled = false;
 	}
 }
